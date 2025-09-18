@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #1f1f1f, #2c3e50);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+main.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+.card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1.5rem;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+  transition: 0.3s ease;
+  z-index: 1;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  z-index: 0;
+}
+
+.card:nth-child(1)::before {
+  background-image: url("images/heart.jpg");
+}
+.card:nth-child(2)::before {
+  background-image: url("images/diabetes.jpg");
+}
+.card:nth-child(3)::before {
+  background-image: url("images/kidney.jpg");
+}
+.card:nth-child(4)::before {
+  background-image: url("images/liver.jpg");
+}
+
+.card h2,
+.card p,
+.card a {
+  position: relative;
+  z-index: 2;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  color: #ffffff;
+}
+
+.card p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+.card a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.card a:hover {
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #111;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+input.form-control,
+select.form-select {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+input.form-control::placeholder {
+  color: #ccc;
+}
+
+select.form-select option {
+  color: #000; /* so dropdown options are visible */
+}

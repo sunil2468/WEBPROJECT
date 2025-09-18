@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kidney Disease Predictor</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Internal CSS -->
+  <style>
+    body {
+      background: linear-gradient(135deg, #1f1f1f, #2c3e50);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .form-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-control, .form-select {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .form-control::placeholder {
+      color: #ccc;
+    }
+
+    .form-select option {
+      color: #000;
+    }
+
+    #result-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #111;
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-top: 2rem;
+    }
+  </style>
+
+</head>
+<body>
+
+  <header>
+    <h1>🩺 Kidney Disease Predictor</h1>
+    <p>Enter your details below to check your kidney disease risk level.</p>
+  </header>
+
+  <main class="container py-5">
+
+    <div class="form-card mx-auto" style="max-width: 800px;">
+      <form id="kidney-form">
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <label class="form-label">Age:</label>
+            <input type="number" id="age" class="form-control" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Gender:</label>
+            <select id="gender" class="form-select" required>
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Blood Pressure (mm Hg):</label>
+            <input type="number" id="bp" class="form-control" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Blood Urea (mg/dL):</label>
+            <input type="number" id="urea" class="form-control" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Serum Creatinine (mg/dL):</label>
+            <input type="number" id="creatinine" step="0.1" class="form-control" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Albumin Level:</label>
+            <select id="albumin" class="form-select" required>
+              <option value="">Select</option>
+              <option value="normal">Normal</option>
+              <option value="low">Low</option>
+              <option value="very_low">Very Low</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Diabetes History:</label>
+            <select id="diabetes" class="form-select" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Swelling in legs/ankle/eyes:</label>
+            <select id="swelling" class="form-select" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-success w-100">Predict Risk</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <div id="result" class="mt-5 text-center" style="display:none;">
+      <div id="result-card" class="mx-auto" style="max-width: 600px;">
+        <h2>Prediction Result:</h2>
+        <p id="risk-level" class="fs-5 mt-3"></p>
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="index.html" class="btn btn-secondary">← Back to Dashboard</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Made with ❤️ for WEB Project</p>
+  </footer>
+
+  <!-- JS logic -->
+  <script>
+    document.getElementById('kidney-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const age = parseInt(document.getElementById('age').value);
+      const bp = parseInt(document.getElementById('bp').value);
+      const urea = parseInt(document.getElementById('urea').value);
+      const creatinine = parseFloat(document.getElementById('creatinine').value);
+      const albumin = document.getElementById('albumin').value;
+      const diabetes = document.getElementById('diabetes').value;
+      const swelling = document.getElementById('swelling').value;
+
+      let score = 0;
+
+      if (age > 50) score += 2;
+      if (bp > 140) score += 2;
+      if (urea > 40) score += 2;
+      if (creatinine > 1.5) score += 2;
+      if (albumin === 'low') score += 1;
+      if (albumin === 'very_low') score += 2;
+      if (diabetes === 'yes') score += 2;
+      if (swelling === 'yes') score += 2;
+
+      let risk = '';
+
+      if (score <= 3) {
+        risk = '🟢 Low Risk — No major signs of kidney disease!';
+      } else if (score <= 6) {
+        risk = '🟡 Moderate Risk — Recommend checking with a nephrologist.';
+      } else {
+        risk = '🔴 High Risk — Please consult a kidney specialist immediately!';
+      }
+
+      document.getElementById('risk-level').innerText = risk;
+      document.getElementById('result').style.display = 'block';
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
