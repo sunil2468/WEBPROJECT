@@ -65,16 +65,16 @@ main.grid-container {
 }
 
 .card:nth-child(1)::before {
-  background-image: url("images/heart.jpg");
+  background-image: url("heart.jpg");
 }
 .card:nth-child(2)::before {
-  background-image: url("images/diabetes.jpg");
+  background-image: url("diabetes.jpg");
 }
 .card:nth-child(3)::before {
-  background-image: url("images/kidney.jpg");
+  background-image: url("kidney.jpg");
 }
 .card:nth-child(4)::before {
-  background-image: url("images/liver.jpg");
+  background-image: url("liver.jpg");
 }
 
 .card h2,
